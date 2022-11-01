@@ -17,6 +17,6 @@ export class NavComponent implements OnInit {
     //Users will not be redirected to a different page
     $event.preventDefault();
 
-    return this.modal.toggleModal();
+    return this.modal.toggleModal('auth');
   }
 }
