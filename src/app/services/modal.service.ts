@@ -10,7 +10,6 @@ interface IModal {
 })
 export class ModalService {
   private modals: IModal[] = [];
-  //private visible = false;
 
   constructor() { }
 
@@ -30,5 +29,9 @@ export class ModalService {
     if (modal) {
       modal.visible = !modal.visible;
     }
+  }
+
+  unregisterModal(id: string) {
+    this.modals = this.modals.filter(element => element.id !== id);
   }
 }
