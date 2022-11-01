@@ -12,13 +12,7 @@ export class ModalService {
     return this.visible;
   }
 
-  toggleModal() {
-    this.visible = !this.visible;
-    /*
-    if(this.isModalVisible()) {
-      return !this.visible;
-    }
-    return !this.visible;
-    */
+  toggleModal(): boolean {
+    return this.visible = !this.visible;
   }
 }
