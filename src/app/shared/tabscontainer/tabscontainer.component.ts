@@ -24,6 +24,8 @@ export class TabscontainerComponent implements AfterContentInit {
     this.tabs?.forEach(tab => { tab.active = false; });
 
     tab.active = true;
+
+    return false;
   }
 
 }
