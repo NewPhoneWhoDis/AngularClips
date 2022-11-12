@@ -1,11 +1,19 @@
 <form [formGroup]="registerForm">
     <!-- Name -->
     <div class="mb-3">
-      <label formControlName="name" class="inline-block mb-2">Name</label>
+      <label class="inline-block mb-2">Name</label>
       <input type="text"
         class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
           duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
-        placeholder="Enter Name" minlength="3" />
+          formControlName="name" placeholder="Enter Name" minlength="3" />
+        <p *ngIf="registerForm.controls.name.errors?.['required']" class="text-red-400">
+          Field is required
+        </p>
+        <!-- Alternative syntax: Recommended for complex applications  <p>{{ registerForm.get('name')?.errors }}</p> -->
+        <p *ngIf="registerForm.controls.name.errors?.['minlength']" class="text-red-400">
+          Field is should have at least {{ registerForm.controls.name.errors?.['minlength'].requiredLength }} characters: 
+          current characters {{ registerForm.controls.name.errors?.['minlength'].actualLength }}
+        </p>
     </div>
     <!-- Email -->
     <div class="mb-3">
