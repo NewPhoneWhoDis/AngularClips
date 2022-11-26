@@ -11,4 +11,8 @@ duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
         current characters {{ control.errors?.['minlength'].actualLength }}
     </p>
     <p *ngIf="control.errors?.email" class="text-red-400">You must enter a valid Email</p>
+    <p *ngIf="control.errors?.min" class="text-red-400">Must be above 18.</p>
+    <p *ngIf="control.errors?.max" class="text-red-400">Must be below 120.</p>
+    <p *ngIf="control.errors?.pattern" class="text-red-400">The password must be at least 8 characters
+        with 1 uppercase letter, 1 lowercase letter, and 1 number</p>
 </ng-container>
