@@ -6,6 +6,7 @@ import { ModalComponent } from './modal/modal.component';
 import { TabscontainerComponent } from './tabscontainer/tabscontainer.component';
 import { TabComponent } from './tab/tab.component';
 import { InputComponent } from './input/input.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 
@@ -14,7 +15,8 @@ import { InputComponent } from './input/input.component';
     ModalComponent,
     TabscontainerComponent,
     TabComponent,
-    InputComponent
+    InputComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { InputComponent } from './input/input.component';
     ModalComponent,
     TabComponent,
     TabscontainerComponent,
-    InputComponent
+    InputComponent,
+    AlertComponent
   ]
 })
 export class SharedModule { }

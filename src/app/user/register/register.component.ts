@@ -8,6 +8,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class RegisterComponent  {
 
+  showAlert: boolean = false;
+  alertMessage: string = '';
+  alertColor: string = 'blue';
+
   name = new FormControl('', [Validators.required, Validators.minLength(3)])
   email = new FormControl('', [Validators.required, Validators.email])
   age = new FormControl('', [Validators.required, Validators.min(18), Validators.max(120)]) 
@@ -23,4 +27,11 @@ export class RegisterComponent  {
     confirm_password: this.confirm_password,
     phoneNumber: this.phoneNumber
   })
+
+  register() {
+    console.log("Submitted")
+    this.showAlert = true;
+    this.alertMessage = 'Submission successful! You account is being created.'; 
+    this.alertColor = 'blue';
+  }
 }
