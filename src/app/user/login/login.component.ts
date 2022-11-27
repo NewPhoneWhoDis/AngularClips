@@ -6,9 +6,19 @@ import { FormGroup, FormControl } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  logInForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
-  })
+export class LoginComponent implements OnInit {
+  credentials = {
+    email: '',
+    password: ''
+  }
+
+  constructor() {}
+
+  ngOnInit(): void {
+      
+  }
+
+  login() {
+    console.log(this.credentials);
+  }
 }
