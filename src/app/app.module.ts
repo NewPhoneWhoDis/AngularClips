@@ -13,13 +13,15 @@ import { NavComponent } from './nav/nav.component';
 import { environment } from 'src/environments/environment';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { ClipComponent } from './clip/clip.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    ClipComponent
   ],
   imports: [
     BrowserModule,
