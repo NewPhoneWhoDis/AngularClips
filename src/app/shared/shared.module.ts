@@ -7,6 +7,7 @@ import { TabscontainerComponent } from './tabscontainer/tabscontainer.component'
 import { TabComponent } from './tab/tab.component';
 import { InputComponent } from './input/input.component';
 import { AlertComponent } from './alert/alert.component';
+import { EventBlockerDirective } from './directives/event-blocker.directive';
 
 
 
@@ -16,7 +17,8 @@ import { AlertComponent } from './alert/alert.component';
     TabscontainerComponent,
     TabComponent,
     InputComponent,
-    AlertComponent
+    AlertComponent,
+    EventBlockerDirective
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { AlertComponent } from './alert/alert.component';
     TabComponent,
     TabscontainerComponent,
     InputComponent,
-    AlertComponent
+    AlertComponent,
+    EventBlockerDirective
   ]
 })
 export class SharedModule { }

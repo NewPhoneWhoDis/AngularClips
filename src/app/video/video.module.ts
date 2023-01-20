@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { VideoRoutingModule } from './video-routing.module';
+import { SharedModule } from '../shared/shared.module';
+
 import { ManageComponent } from './manage/manage.component';
 import { UploadComponent } from './upload/upload.component';
 
@@ -13,7 +14,8 @@ import { UploadComponent } from './upload/upload.component';
   ],
   imports: [
     CommonModule,
-    VideoRoutingModule
+    VideoRoutingModule,
+    SharedModule,
   ]
 })
 export class VideoModule { }
