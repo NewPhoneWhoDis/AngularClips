@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-upload',
@@ -7,7 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
   isDragover: boolean = false;
-  file: File | null = null; 
+  file: File | null = null;
+  hideForm = false;
+
+  title = new FormControl('', {
+    validators: [
+      Validators.required,
+      Validators.maxLength(5)
+    ],
+    nonNullable: true
+  });
+
+  uploadForm = new FormGroup({
+    title: this.title
+  })
+
 
   constructor() { }
 
@@ -22,6 +37,14 @@ export class UploadComponent implements OnInit {
     if(!this.file || this.file.type !== 'video/mp4') {
       return
     }
+
+    this.title.setValue(this.file.name.replace(/\.[^/.]+$/, ''))
+    this.hideForm = true;
+  }
+
+  uploadFile() {
+    //TODO: Implement
+    console.log('File Uploaded')
   }
 
 }
