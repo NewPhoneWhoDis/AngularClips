@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-upload',
@@ -24,7 +26,7 @@ export class UploadComponent implements OnInit {
   })
 
 
-  constructor() { }
+  constructor(private storageService: AngularFireStorage) { }
 
   ngOnInit(): void {
   }
@@ -43,8 +45,10 @@ export class UploadComponent implements OnInit {
   }
 
   uploadFile() {
-    //TODO: Implement
-    console.log('File Uploaded')
+    const clipFileName = uuid();
+    const clipPath = `clips/${clipFileName}.mp4`;
+
+    this.storageService.upload(clipPath, this.file)
   }
 
 }
