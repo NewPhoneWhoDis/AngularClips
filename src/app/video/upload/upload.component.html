@@ -17,6 +17,9 @@
 
       <!-- Video Editor -->
       <ng-template #uploadFormContainer>
+        <app-alert *ngIf="showAlert" [color]="alertColor">
+          <p>{{alertMessage}}</p>
+        </app-alert>
 
         <!-- Form -->
         <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">

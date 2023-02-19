@@ -10,8 +10,12 @@ import { v4 as uuid } from 'uuid';
 })
 export class UploadComponent implements OnInit {
   isDragover: boolean = false;
+  showAlert: boolean = false;
+  inSubmission: boolean = false;
   file: File | null = null;
   hideForm = false;
+  alertColor = 'blue';
+  alertMessage = 'Uploading...';
 
   title = new FormControl('', {
     validators: [
@@ -45,6 +49,9 @@ export class UploadComponent implements OnInit {
   }
 
   uploadFile() {
+    this.showAlert = true;
+    this.alertColor = 'blue';
+    this.inSubmission = true;
     const clipFileName = uuid();
     const clipPath = `clips/${clipFileName}.mp4`;
 
