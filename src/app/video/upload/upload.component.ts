@@ -1,3 +1,4 @@
+import { ClipService } from './../../services/clip.service';
 import firebase  from 'firebase/compat/app';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -36,8 +37,10 @@ export class UploadComponent implements OnInit {
   })
 
 
-  constructor(private storageService: AngularFireStorage,
-    private auth: AngularFireAuth
+  constructor(
+    private storageService: AngularFireStorage,
+    private auth: AngularFireAuth,
+    private clipsService: ClipService
     ) {
       auth.user.subscribe(user => {
         this.user = user;
@@ -82,12 +85,14 @@ export class UploadComponent implements OnInit {
     ).subscribe({
       next: (url) => {
         const clip = {
-          uid: this.user?.uid,
-          displayName: this.user?.displayName,
+          uid: this.user?.uid as string,
+          displayName: this.user?.displayName as string,
           title: this.title.value,
           fileName: `${clipFileName}.mp4`,
           url: url
         }
+
+        this.clipsService.createClip(clip);
 
 
         this.alertColor = 'green';
