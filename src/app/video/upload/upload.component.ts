@@ -1,8 +1,8 @@
 import { ClipService } from './../../services/clip.service';
 import firebase  from 'firebase/compat/app';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { v4 as uuid } from 'uuid';
 import { last, switchMap } from 'rxjs';
@@ -12,7 +12,7 @@ import { last, switchMap } from 'rxjs';
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css']
 })
-export class UploadComponent implements OnInit {
+export class UploadComponent implements OnDestroy {
   isDragover: boolean = false;
   showAlert: boolean = false;
   inSubmission: boolean = false;
@@ -23,6 +23,7 @@ export class UploadComponent implements OnInit {
   alertMessage = 'Uploading...';
   percentage: number = 0;
   user: firebase.User | null = null;
+  task?: AngularFireUploadTask;
 
   title = new FormControl('', {
     validators: [
@@ -47,7 +48,8 @@ export class UploadComponent implements OnInit {
       })
     }
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.task?.cancel();
   }
 
   storeFile($event: Event) {
@@ -75,14 +77,14 @@ export class UploadComponent implements OnInit {
     const clipFileName = uuid();
     const clipPath = `clips/${clipFileName}.mp4`;
 
-    const task = this.storageService.upload(clipPath, this.file)
+    this.task = this.storageService.upload(clipPath, this.file)
     const clipReference = this.storageService.ref(clipPath);
 
-    task.percentageChanges().subscribe(progress => {
+    this.task.percentageChanges().subscribe((progress) => {
       this.percentage = progress as number / 100;
     })
 
-    task.snapshotChanges().pipe(
+    this.task.snapshotChanges().pipe(
       last(), 
       switchMap(() => clipReference.getDownloadURL())
     ).subscribe({
