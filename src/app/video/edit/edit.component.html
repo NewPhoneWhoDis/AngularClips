@@ -1,8 +1,12 @@
 <app-modal class="hidden" modalID="editClip">
     <p class="text-2xl font-bold">Edit Video</p>
 
+    <app-alert *ngIf="showAlert" [color]="alertColor">
+      <p>{{alertMessage}}</p>
+    </app-alert>
+
     <!-- Form -->
-    <form [formGroup]="editForm">
+    <form [formGroup]="editForm" (ngSubmit)="submit()">
       <!-- Title -->
       <div class="mt-4">
         <label class="block text-xl mb-4">Title</label>
