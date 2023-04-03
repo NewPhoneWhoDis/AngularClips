@@ -6,6 +6,7 @@ import * as path from 'path';
   providedIn: 'root'
 })
 export class FfmpegService {
+  isRunning: boolean = false;
   isReady: boolean = false;
   private _ffmpeg;
 
@@ -21,6 +22,7 @@ export class FfmpegService {
   }
 
   async getScreenshots(file: File) {
+    this.isRunning = true;
     let data = await fetchFile(file);
 
     this._ffmpeg.FS('writeFile', file.name, data);
@@ -56,6 +58,7 @@ export class FfmpegService {
       screenshots.push(screenshotURL);
     })
 
+    this.isRunning = false;
     return screenshots;
   }
 }
