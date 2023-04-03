@@ -1,4 +1,5 @@
 import { ClipService } from './../../services/clip.service';
+import { FfmpegService } from 'src/app/services/ffmpeg.service';
 import firebase  from 'firebase/compat/app';
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -43,11 +44,14 @@ export class UploadComponent implements OnDestroy {
     private storageService: AngularFireStorage,
     private auth: AngularFireAuth,
     private clipsService: ClipService,
-    private router: Router
+    private router: Router,
+    private ffmpegService: FfmpegService
     ) {
       auth.user.subscribe(user => {
         this.user = user;
       })
+
+      this.ffmpegService.init();
     }
 
   ngOnDestroy(): void {
@@ -122,6 +126,10 @@ export class UploadComponent implements OnDestroy {
         console.log(error);
       }
     })
+  }
+
+  isFfmpegReady(): boolean {
+    return this.ffmpegService.isReady;
   }
 
 }
