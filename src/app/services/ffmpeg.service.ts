@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createFFmpeg } from '@ffmpeg/ffmpeg';
+import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,28 @@ export class FfmpegService {
 
     await this._ffmpeg.load();
     this.isReady = true;
+  }
+
+  async getScreenshots(file: File) {
+    let data = await fetchFile(file);
+
+    this._ffmpeg.FS('writeFile', file.name, data);
+
+    const seconds = [1,2,3];
+    const commands: string[] = [];
+
+    seconds.forEach(second => {
+      commands.push(
+        '-i', file.name,
+        '-ss', `00:00:0${second}`,
+        '-frames:v', '1',
+        '-filter:v', 'scale=510:-1',
+        `-output_0${second}.png`, 
+      )
+    })
+
+    await this._ffmpeg.run(
+      ...commands
+    );
   }
 }
