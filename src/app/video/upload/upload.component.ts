@@ -8,6 +8,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { v4 as uuid } from 'uuid';
 import { last, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-upload',
@@ -28,6 +29,7 @@ export class UploadComponent implements OnDestroy {
   task?: AngularFireUploadTask;
   screenshots: string[] = [];
   selectedScreenshot: string = "";
+  screenshotTask?: AngularFireUploadTask;
 
   title = new FormControl('', {
     validators: [
@@ -79,7 +81,7 @@ export class UploadComponent implements OnDestroy {
     this.hideForm = true;
   }
 
-  uploadFile() {
+  async uploadFile() {
     this.uploadForm.disable();
     this.showAlert = true;
     this.alertColor = 'blue';
@@ -89,11 +91,23 @@ export class UploadComponent implements OnDestroy {
     const clipFileName = uuid();
     const clipPath = `clips/${clipFileName}.mp4`;
 
+    const screenshotBlob = await this.ffmpegService.blobFromURL(this.selectedScreenshot);
+    const screenshotPath = `screenshots/${clipFileName}.png`;
+
     this.task = this.storageService.upload(clipPath, this.file)
     const clipReference = this.storageService.ref(clipPath);
 
-    this.task.percentageChanges().subscribe((progress) => {
-      this.percentage = progress as number / 100;
+    this.screenshotTask = this.storageService.upload(screenshotPath, screenshotBlob);
+
+    combineLatest([this.task.percentageChanges(),
+    this.screenshotTask.percentageChanges()]).subscribe((progress) => {
+      let [clipProgess, screenshotProgress] = progress;
+
+      if(!clipProgess || !screenshotProgress) return;
+
+      let total = clipProgess + screenshotProgress;
+
+      this.percentage = total as number / 200;
     })
 
     this.task.snapshotChanges().pipe(

@@ -36,7 +36,7 @@ export class FfmpegService {
         '-ss', `00:00:0${second}`,
         '-frames:v', '1',
         '-filter:v', 'scale=510:-1',
-        `-output_0${second}.png`, 
+        `output_0${second}.png`, 
       )
     })
 
@@ -60,5 +60,12 @@ export class FfmpegService {
 
     this.isRunning = false;
     return screenshots;
+  }
+
+  async blobFromURL(url: string) {
+    const response  = await fetch(url);
+    const blob = await response.blob();
+
+    return blob;
   }
 }
