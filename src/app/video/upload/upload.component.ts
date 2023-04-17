@@ -69,6 +69,7 @@ export class UploadComponent implements OnDestroy {
     ($event.target as HTMLInputElement).files?.item(0) ?? null;
 
     if(!this.file || this.file.type !== 'video/mp4') {
+      console.log('Invalid file or file type:', this.file);
       return
     }
 
@@ -108,6 +109,7 @@ export class UploadComponent implements OnDestroy {
       let total = clipProgess + screenshotProgress;
 
       this.percentage = total as number / 200;
+      console.log('Percentage:', this.percentage);
     })
 
     forkJoin([this.task.snapshotChanges(),
