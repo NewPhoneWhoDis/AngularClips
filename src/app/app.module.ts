@@ -17,6 +17,7 @@ import { AboutComponent } from './about/about.component';
 import { ClipComponent } from './clip/clip.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ClipsListComponent } from './clips-list/clips-list.component';
+import { FbTimestampPipe } from './pipes/fb-timestamp.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ClipsListComponent } from './clips-list/clips-list.component';
     AboutComponent,
     ClipComponent,
     NotFoundComponent,
-    ClipsListComponent
+    ClipsListComponent,
+    FbTimestampPipe
   ],
   imports: [
     BrowserModule,
